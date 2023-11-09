@@ -1,0 +1,19 @@
+.title{
+    margin: 0 auto;
+    border: 1px solid black;
+    width: fit-content;
+    margin-bottom: 20px;
+    margin-top: 100px;
+    padding: 10px;
+    font-family: sans-serif;
+}
+.time{
+    margin: 0 auto;
+    border: 1px solid black;
+    width: fit-content;
+    padding: 10px 100px;
+    font-family: sans-serif;
+}
+.l2{
+    margin-left: 25px;
+}
