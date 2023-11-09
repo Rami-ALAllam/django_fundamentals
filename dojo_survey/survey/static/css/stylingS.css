@@ -11,7 +11,7 @@
 }
 .btn{
 font-size: small;
-margin-top: 10px;
+margin-top: 40px;
 color: white;
 background-color: #76a5af;
 padding: 5px 25px;
@@ -19,7 +19,7 @@ border: 3px solid black;
 box-shadow: 3px 3px black;
 position: absolute;
 right: 30px;
-top: 250px;
+top: 350px;
 }
 input{
 margin-left: 130px;
@@ -37,4 +37,8 @@ padding-right: 100px;
 padding-top: 2px;
 padding-bottom: 2px;
 padding-left: 10px;
+}
+#offers{
+margin-left: -2px;
+margin-top: 20px;
 }
