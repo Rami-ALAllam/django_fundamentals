@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylingR.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <h3>Subbmitted Info</h3>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td>{{name}}</td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td>{{city}}</td>
+            </tr>
+            <tr>
+                <td>Language:</td>
+                <td>{{lang}}</td>
+            </tr>
+            <tr>
+                <td>Comment:</td>
+                <td>{{comment}}</td>
+            </tr>
+        </table>
+    </div>
+    <button class="btn">Go Back</button>
+</body>
+</html>
