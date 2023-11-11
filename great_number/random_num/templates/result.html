@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styling.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome to the Great Number Game!</h1>
+        <p class="p1">I am thinking of a number between 1 and 100</p>
+        <p class="p2">Take a guess!</p>
+
+        {% if request.session.counter < 5 %}
+            {% if request.session.guess > request.session.num %}
+            <div class="wrong">
+                <h1 class="center">Too high!</h1>
+            </div>
+            <form action="handle" method="POST">
+                {% csrf_token %}
+                <input type="text" name="num1" class="box"><br>
+                <button class="btn">try again</button>
+            </form>
+
+
+            {% elif request.session.guess < request.session.num %}
+            <div class="wrong">
+                <h1 class="center">Too low!</h1>
+            </div>
+            <form action="handle" method="POST">
+                {% csrf_token %}
+                <input type="text" name="num1" class="box"><br>
+                <button class="btn">try again</button>
+            </form>
+
+
+            {% elif request.session.guess == request.session.num %}
+            <div class="right">
+                <h1 class="center2">{{request.session.guess}} was the number!</h1>
+                <p class="center3">Number of attempts needed: {{request.session.counter}}</p>
+                <form action="end" method="GET">
+                    {% csrf_token %}
+                    <button class="btn" id="b3">play again</button>
+                </form>
+            </div>
+
+            {%endif%}
+        {% elif request.session.counter >= 5 %}
+            <div class="wrong">
+                <h1 class="center">You lose</h1>
+                <form action="end" method="GET">
+                    {% csrf_token %}
+                    <button class="btn" id="b3">try again</button>
+                </form>
+            </div>
+        {%endif%}
+
+    </div>
+
+</body>
+</html>
