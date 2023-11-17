@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styling.css' %}">
+</head>
+
+<body>
+    <div class="top">
+        <h1>Your Gold:</h1>
+        <h1 class="number"> {{request.session.gold}}</h1>
+
+        <h1>Number of moves:</h1>
+        <h1 class="number"> {{request.session.moves}}</h1>
+
+        <form action="reset" method="get">
+            {% csrf_token %}
+            <button class="btn" id="reset">Reset</button>
+        </form>
+    </div>
+
+    <p class="top">In order to win: get 150 gold in 10 moves or less</p>
+    
+    {% if request.session.moves <= 10 and request.session.gold < 150 %}
+    <div class="container">
+        <div class="box">
+            <h1>Farm</h1>
+            <p>(earns 2-5 gold)</p>
+            <form action="handle" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="gold_add" value="farm"><br>
+                <button class="btn">Find Gold!</button>
+            </form>
+        </div>
+
+        <div class="box">
+            <h1>Cave</h1>
+            <p>(earns 5-10 gold)</p>
+            <form action="handle" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="gold_add" value="cave"><br>
+                <button class="btn">Find Gold!</button>
+            </form>
+        </div>
+
+        <div class="box">
+            <h1>House</h1>
+            <p>(earns 10-20 gold)</p>
+            <form action="handle" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="gold_add" value="house"><br>
+                <button class="btn">Find Gold!</button>
+            </form>
+        </div>
+
+        <div class="box">
+            <h1>Quest</h1>
+            <p>(earns/takes 0-50 gold)</p>
+            <form action="handle" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="gold_add" value="quest"><br>
+                <button class="btn">Find Gold!</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <h1>Activities:</h1>
+        <div class="activities">
+
+            {% for activity in request.session.activities %}
+                {% if request.session.name != 'quest' %}
+                    <p class="green">You entered a {{activity.field}} and earned {{activity.gold}} gold.({{date}},{{time}})</p>
+                {% elif request.session.name == 'quest' %}
+                    {% if request.session.amount > 0 %}
+                        <p class="green">You Completed a {{activity.field}} and earned {{activity.gold}} gold.({{date}},{{time}})</p>
+                    {%else %}
+                        <p class="red">You Failed a {{activity.field}} and Lost {{activity.gold}} gold. Ouch({{date}},{{time}})</p>
+                    {%endif%}
+                {%endif%}
+            {%endfor%}
+        </div>
+    </div>
+
+    {%elif request.session.moves > 10 and request.session.gold <= 150 or request.session.moves > 10 and request.session.gold >= 150  %}
+    <div class="bottom">
+        <h1>You lose</h1>
+        <form action="reset" method="get">
+            {% csrf_token %}
+            <button class="btn">Play again</button>
+        </form>
+    {%elif request.session.moves <= 10 and request.session.gold >= 150 %}
+    <div class="bottom">
+        <h1>You Win</h1>
+        <form action="reset" method="get">
+            {% csrf_token %}
+            <button class="btn">Play again</button>
+        </form>
+    {%endif%}
+
+    </div>
+</body>
+
+</html>
